@@ -6,6 +6,7 @@ import { getCountryByCode, getCountriesByCodes } from '@/lib/api/countries';
 import { formatPopulation, formatCurrencies, formatLanguages, formatNativeName } from '@/lib/utils/formatters';
 import Button from '@/components/ui/Button';
 import Skeleton from '@/components/ui/Skeleton';
+import SkeletonDetail from '@/components/SkeletonDetail'; 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
@@ -76,16 +77,7 @@ export default function CountryDetailPage({ params }: CountryDetailPageProps) {
   if (loading) {
     return (
       <main className="min-h-screen bg-gray-100 dark:bg-gray-900 p-8 flex items-center justify-center">
-        <div className="w-full max-w-4xl bg-white dark:bg-gray-800 shadow-md rounded-lg p-8 flex flex-col md:flex-row gap-8">
-          <Skeleton className="w-full md:w-1/2 h-64 md:h-auto" />
-          <div className="w-full md:w-1/2 space-y-4">
-            <Skeleton className="h-8 w-3/4" />
-            <Skeleton className="h-6 w-full" />
-            <Skeleton className="h-6 w-5/6" />
-            <Skeleton className="h-6 w-4/5" />
-            <Skeleton className="h-6 w-1/2" />
-          </div>
-        </div>
+          <SkeletonDetail />
       </main>
     );
   }
