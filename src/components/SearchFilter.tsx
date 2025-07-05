@@ -38,10 +38,14 @@ export default function SearchFilter({ onFilterChange, regions }: SearchFilterPr
       <Select
         value={selectedRegion}
         onChange={handleRegionChange}
-        options={regions.map(region => ({ value: region, label: region === '' ? 'Filtrar por región' : region }))}
-        className="md:w-1/4 p-4 rounded-md shadow-md outline-none 
-                   focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 
-                   text-gray-900 dark:text-white"
+        options={[
+          { value: '', label: 'Filtrar por región' },
+          ...regions.map(region => ({
+            value: region,
+            label: region
+          }))
+        ]}
+        className="..."
       />
     </div>
   );
