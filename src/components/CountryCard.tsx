@@ -1,41 +1,42 @@
-//Recibe los datos de un pais para mostrarlo 
-import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Country } from '@/types/country'; 
-import { formatPopulation } from '@/lib/utils/formatters';
+import { Country } from '@/types/country';
 
 interface CountryCardProps {
   country: Country;
 }
 
-const CountryCard: React.FC<CountryCardProps> = ({ country }) => {
-  const capitalDisplay = country.capital && country.capital.length > 0 ? country.capital[0] : 'N/A';
-
+export default function CountryCard({ country }: CountryCardProps) {
   return (
-    <Link href={`/${country.cca3}`}>
-      <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden cursor-pointer hover:shadow-lg transition-shadow duration-300 h-full flex flex-col">
-        <div className="relative w-full h-40">
-          <Image
-            src={country.flags.png}
-            alt={country.flags.alt || `Bandera de ${country.name.common}`}
-            fill 
-            style={{ objectFit: 'cover' }} 
-            priority 
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          />
-        </div>
-        <div className="p-6 flex-grow"> 
-          <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">{country.name.common}</h2>
-          <div className="space-y-1 text-gray-700 dark:text-gray-300">
-            <p><span className="font-semibold">Población:</span> {formatPopulation(country.population)}</p>
-            <p><span className="font-semibold">Región:</span> {country.region}</p>
-            <p><span className="font-semibold">Capital:</span> {capitalDisplay}</p>
-          </div>
-        </div>
+    <Link 
+      href={`/${country.cca3}`} 
+      className="block bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden 
+                 transition-all duration-300 hover:shadow-xl hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-blue-500" // Añadimos ring para accesibilidad
+    >
+      <div className="relative w-full h-40">
+        <Image
+          src={country.flags.png}
+          alt={country.flags.alt || `Bandera de ${country.name.common}`}
+          fill
+          style={{ objectFit: 'cover' }}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="object-cover"
+        />
+      </div>
+      <div className="p-6">
+        <h2 className="text-xl font-bold mb-3 text-gray-900 dark:text-white">
+          {country.name.common}
+        </h2>
+        <p className="text-gray-700 dark:text-gray-300 mb-1 leading-relaxed">
+          <strong className="font-semibold">Población:</strong> {country.population.toLocaleString()}
+        </p>
+        <p className="text-gray-700 dark:text-gray-300 mb-1 leading-relaxed">
+          <strong className="font-semibold">Región:</strong> {country.region}
+        </p>
+        <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+          <strong className="font-semibold">Capital:</strong> {country.capital ? country.capital[0] : 'N/A'}
+        </p>
       </div>
     </Link>
   );
-};
-
-export default CountryCard;
+}

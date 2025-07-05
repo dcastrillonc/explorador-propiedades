@@ -1,31 +1,53 @@
-//Hook encargado de la lógica de fetching de datos
-import { useState, useEffect, useCallback } from 'react';
-import { Country } from '@/types/country'; 
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { getAllCountries } from '@/lib/api/countries';
+import { Country } from '@/types/country';
 
-export const useCountries = () => {
+interface UseCountriesProps {
+  searchTerm: string;
+  selectedRegion: string;
+}
+
+export const useCountries = ({ searchTerm, selectedRegion }: UseCountriesProps) => {
   const [countries, setCountries] = useState<Country[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [allFetchedCountries, setAllFetchedCountries] = useState<Country[]>([]);
 
   const fetchCountries = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
-      const data = await getAllCountries();
+      const data = await getAllCountries({ name: searchTerm, region: selectedRegion });
       setCountries(data);
+
+      if (!selectedRegion && !searchTerm) { 
+        const allData = await getAllCountries();
+        setAllFetchedCountries(allData);
+      }
+
     } catch (err) {
       console.error("Failed to fetch countries:", err);
-      setError("No se pudo cargar los países. Intenta de nuevo.");
-      setCountries([]);
+      setError("No se pudieron cargar los países. Intenta de nuevo.");
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [searchTerm, selectedRegion]);
 
   useEffect(() => {
     fetchCountries();
   }, [fetchCountries]);
 
-  return { countries, loading, error, refetch: fetchCountries };
+  const uniqueRegions = useMemo(() => {
+    const regions = new Set<string>();
+    regions.add('');
+    
+    allFetchedCountries.forEach(country => {
+      if (country.region) {
+        regions.add(country.region);
+      }
+    });
+    return Array.from(regions).sort(); 
+  }, [allFetchedCountries]);
+
+  return { countries, loading, error, uniqueRegions };
 };

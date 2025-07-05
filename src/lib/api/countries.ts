@@ -3,7 +3,49 @@ import { Country } from '@/types/country';
 
 const BASE_URL = 'https://restcountries.com/v3.1';
 
-const ALL_COUNTRY_FIELDS = ['name', 'population', 'region', 'subregion', 'capital', 'flags', 'cca3', 'currencies', 'languages', 'borders'].join(',');
+const ALL_COUNTRY_FIELDS = [
+  'name', 'population', 'region', 'subregion', 'capital', 'flags', 'cca3', 'currencies', 'languages', 'borders'
+].join(',');
+
+interface GetAllCountriesOptions {
+  name?: string;
+  region?: string;
+}
+
+export const getAllCountries = async (options?: GetAllCountriesOptions): Promise<Country[]> => {
+  try {
+    let url = `${BASE_URL}/all?fields=${ALL_COUNTRY_FIELDS}`;
+
+    if (options?.region) {
+      url = `${BASE_URL}/region/${options.region}?fields=${ALL_COUNTRY_FIELDS}`;
+    }
+
+    console.log(`Attempting to fetch all countries from URL: ${url}`);
+    const response = await fetch(url);
+    console.log(`Response status for all countries:`, response.status);
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error('API Error fetching all countries:', errorData);
+      throw new Error(`HTTP error! status: ${response.status} - ${errorData.message || 'Unknown error'}`);
+    }
+    const data: Country[] = await response.json();
+    
+    let filteredData = data;
+    if (options?.name) {
+      const searchTerm = options.name.toLowerCase();
+      filteredData = data.filter(country =>
+        country.name.common.toLowerCase().includes(searchTerm) 
+      );
+    }
+    
+    console.log(`Successfully fetched and filtered ${filteredData.length} countries.`);
+    return filteredData;
+  } catch (error) {
+    console.error('Error fetching all countries:', error);
+    throw error;
+  }
+};
 
 export const getCountryByCode = async (code: string): Promise<Country | undefined> => {
   try {
@@ -33,25 +75,6 @@ export const getCountryByCode = async (code: string): Promise<Country | undefine
     }
   } catch (error) {
     return undefined; 
-  }
-};
-
-export const getAllCountries = async (): Promise<Country[]> => {
-  try {
-    const url = `${BASE_URL}/all?fields=${ALL_COUNTRY_FIELDS}`;
-    console.log("Fetching all countries from URL:", url); 
-
-    const response = await fetch(url);
-    if (!response.ok) {
-      const errorData = await response.json();
-      console.error("API Error Response Data:", errorData);
-      throw new Error(`HTTP error! status: ${response.status} - ${errorData.message || 'Unknown error'}`);
-    }
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Error fetching all countries:", error);
-    throw error;
   }
 };
 
