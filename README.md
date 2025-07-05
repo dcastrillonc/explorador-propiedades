@@ -4,7 +4,7 @@ Una aplicación web interactiva desarrollada con Next.js que permite explorar un
 
 ## Demo
 
-Para ver la aplicación ingresar al siguiente link:
+Para ver la aplicación ingresar al siguiente link https://6868c03aa8173c0078c6a31f--strong-lolly-4bc778.netlify.app/
 
 ## Características
 
