@@ -6,7 +6,7 @@ Por Daniela Castrillón
 
 ## Demo
 
-Para ver la aplicación ingresar al siguiente link https://6868c03aa8173c0078c6a31f--strong-lolly-4bc778.netlify.app/
+Para ver la aplicación ingresar al siguiente link https://6869300774ef2725d335aa40--strong-lolly-4bc778.netlify.app/
 
 ## Características
 
