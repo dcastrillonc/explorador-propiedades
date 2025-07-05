@@ -4,20 +4,18 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-
 import { Country } from '@/types/country';
 import { getCountryByCode, getCountriesByCodes } from '@/lib/api/countries';
 import Button from '@/components/ui/Button';
 import SkeletonDetail from '@/components/SkeletonDetail';
 import { formatNativeName, formatPopulation, formatCurrencies, formatLanguages } from '@/lib/utils/formatters';
 
-interface CountryDetailPageProps {
-  params: {
-    countryName: string;
-  };
-}
+export default function CountryDetailPage({
+    params,
+  }: {
+    params: { countryName: string };
+  }) {
 
-export default function CountryDetailPage({ params }: CountryDetailPageProps) {
   const router = useRouter();
   const { countryName } = params;
 
