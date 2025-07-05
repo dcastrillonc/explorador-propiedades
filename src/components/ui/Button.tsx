@@ -1,8 +1,8 @@
 import React from 'react';
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
 
-const Button: React.FC<ButtonProps> = ({ className, children, ...props }) => {
+const Button: React.FC<ButtonProps> = ({ className = '', children, ...props }) => {
   return (
     <button
       className={`flex items-center justify-center gap-2 font-medium 

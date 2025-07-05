@@ -3,9 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-  "dev": "next dev",
-  "build": "next build",
-  "postinstall": "node scripts/fix-tsconfig.js"
+    "dev": "next dev",
+    "build": "node scripts/fix-tsconfig.js && next build"
   },
   "dependencies": {
     "react": "^19.0.0",

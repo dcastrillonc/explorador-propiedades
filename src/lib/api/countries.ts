@@ -73,7 +73,7 @@ export const getCountryByCode = async (code: string): Promise<Country | undefine
     } else {
       return undefined;
     }
-  } catch (error) {
+  } catch {
     return undefined; 
   }
 };
@@ -92,7 +92,9 @@ export const getCountriesByCodes = async (codes: string[]): Promise<Country[]> =
     }
     const data = await response.json();
     return data;
-  } catch (error) {
+  } 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  catch (error) {
     console.error(`Error fetching countries by codes (${codes.join(',')}):`, error);
     throw error;
   }
