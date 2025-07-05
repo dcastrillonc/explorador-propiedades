@@ -2,6 +2,8 @@
 
 Una aplicación web interactiva desarrollada con Next.js que permite explorar una lista de países, buscar por nombre, filtrar por región y ver detalles específicos de cada nación.
 
+Por Daniela Castrillón
+
 ## Demo
 
 Para ver la aplicación ingresar al siguiente link https://6868c03aa8173c0078c6a31f--strong-lolly-4bc778.netlify.app/
@@ -34,7 +36,7 @@ Esta organización facilita la mantenibilidad, la escalabilidad y la colaboraci�
 
 Para este proyecto, se ha elegido principalmente **Client-Side Rendering (CSR)** para las vistas interactivas (la página principal de listado y filtros, y la página de detalles de país).
 
-* **`'use client'` directiva:** Se utiliza la directiva `'use client'` al inicio de los componentes que requieren interactividad del lado del cliente (manejo de estado, eventos de usuario, hooks como `useState`, `useEffect`).
+* **'use client' directiva:** Se utiliza la directiva `'use client'` al inicio de los componentes que requieren interactividad del lado del cliente (manejo de estado, eventos de usuario, hooks como `useState`, `useEffect`).
 * **Razonamiento del CSR:**
     - Interactividad en tiempo real
     - Flexibilidad de la API
@@ -44,7 +46,7 @@ Para este proyecto, se ha elegido principalmente **Client-Side Rendering (CSR)**
 
 El estado de la aplicación se gestiona de forma eficiente utilizando los **Hooks nativos de React** (`useState`, `useEffect`, `useCallback`, `useMemo`).
 
-* El **`useCountries` hook** centraliza la lógica de obtención de datos, manejo de estados de carga/error y aplicación de filtros, proporcionando una interfaz limpia a los componentes de UI. Esto permite que los componentes se centren únicamente en cómo renderizar la información, delegando la complejidad del fetching al hook.
+* El `useCountries` hook centraliza la lógica de obtención de datos, manejo de estados de carga/error y aplicación de filtros, proporcionando una interfaz limpia a los componentes de UI. Esto permite que los componentes se centren únicamente en cómo renderizar la información, delegando la complejidad del fetching al hook.
 * El uso de `useCallback` y `useMemo` optimiza el rendimiento al memorizar funciones y valores calculados, evitando re-renderizados innecesarios.
 
 ### 4. UI/UX y Tailwind CSS
@@ -60,17 +62,15 @@ El estado de la aplicación se gestiona de forma eficiente utilizando los **Hook
 
 ### 5. Buenas prácticas en el manejo de errores
 
-    * Las llamadas a la API están encapsuladas en bloques `try...catch` para manejar fallos de red o respuestas inesperadas.
-    * La aplicación distingue entre un error de la API y la ausencia de resultados (ej. "País no encontrado"), mostrando mensajes de usuario apropiados y controlando el estado de la UI para evitar que se "rompa".
-    * Se muestra un mensaje claro al usuario si no se pudieron cargar los datos o si una búsqueda no devuelve resultados.
+* Las llamadas a la API están encapsuladas en bloques `try...catch` para manejar fallos de red o respuestas inesperadas.
+* La aplicación distingue entre un error de la API y la ausencia de resultados (ej. "País no encontrado"), mostrando mensajes de usuario apropiados y controlando el estado de la UI para evitar que se "rompa".
+* Se muestra un mensaje claro al usuario si no se pudieron cargar los datos o si una búsqueda no devuelve resultados.
 
 ## Cómo instalar y ejecutar el proyecto localmente?
 
 ### Prerrequisitos
 
-Tener instalado
-
-* Node.js (versión 18.x o superior recomendada)
+* [Node.js](https://nodejs.org/en) (versión 18.x o superior recomendada)
 * npm (viene con Node.js) o Yarn
 
 ### Pasos de instalación
